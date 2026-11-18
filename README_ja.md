@@ -1,12 +1,15 @@
 # epd_windabaft0213a01 e-Paper ドライバ セットアップガイド
 
-## 同梱ファイル
+## ファイル構成と入手先
 
-| ファイル | ライセンス | 内容 |
-|---------|-----------|------|
-| `epd_windabaft0213a01.py` | MIT | e-Paperドライバ本体 |
-| `demo_price_tag.py` | 独自ライセンス（再配布不可） | 電子棚札サンプル |
-| `README.md` | - | 本ファイル |
+| ファイル | ライセンス | 内容 | 入手先 |
+|---------|-----------|------|--------|
+| `epd_windabaft0213a01.py` | MIT | e-Paperドライバ本体 | GitHub（本リポジトリ） |
+| `demo_price_tag.py` | 独自ライセンス（再配布不可） | 電子棚札サンプル（パネル購入者向け） | https://windabaft.co.jp/epd/ |
+
+- ドライバは本リポジトリで公開しています。自由に使用・改変・再配布できます（MIT）。
+- 電子棚札サンプル `demo_price_tag.py` は**パネル購入者向け**です。パネルに同梱の紙のQRコード、または上記URLからダウンロードしてください。再配布はできません。
+- 基本デモ（3色表示の確認）はドライバ単体で動作します。電子棚札サンプルは不要です。
 
 ---
 
@@ -19,7 +22,7 @@
 | 対応ボード | Raspberry Pi Zero W / Zero 2W |
 | 電源 | 2A以上のアダプター + **データ通信対応** MicroUSBケーブル |
 
-> 注意 **充電専用USBケーブルは使用禁止です。** e-paperリフレッシュ時の電流スパイクでRaspberry Piが再起動します。
+> ⚠️ **充電専用USBケーブルは使用禁止です。** e-paperリフレッシュ時の電流スパイクでRaspberry Piが再起動します。
 
 ---
 
@@ -69,11 +72,29 @@ sudo mv /tmp/Anton-Regular.ttf /usr/share/fonts/truetype/anton/
 sudo fc-cache -f
 ```
 
-### 4. ファイルをRPiに転送
+### 4. ドライバをダウンロード
 
+**RPiで：**
 ```bash
-scp epd_windabaft0213a01.py demo_price_tag.py pi@<RPiのIPアドレス>:~/
+curl -L "https://github.com/windabaft/epd-windabaft0213a01/raw/main/epd_windabaft0213a01.py" \
+     -o ~/epd_windabaft0213a01.py
 ```
+
+### 5. 電子棚札サンプルをダウンロード（購入者向け・任意）
+
+https://windabaft.co.jp/epd/ からダウンロードします。
+
+**RPiで直接取得する場合：**
+```bash
+curl -L "https://windabaft.co.jp/epd/download.php" -o ~/demo_price_tag.py
+```
+
+**Macでダウンロードして転送する場合：**
+```bash
+scp demo_price_tag.py pi@<RPiのIPアドレス>:~/
+```
+
+> 基本デモだけ試す場合は、この手順は不要です。
 
 ---
 
@@ -91,7 +112,7 @@ python3 -B ~/epd_windabaft0213a01.py
 python3 -B ~/epd_windabaft0213a01.py clear
 ```
 
-### 電子棚札デモ
+### 電子棚札デモ（手順5でサンプルを取得した場合）
 
 ```bash
 python3 -B ~/demo_price_tag.py
@@ -101,7 +122,7 @@ python3 -B ~/demo_price_tag.py
 
 ## 電子棚札のカスタマイズ
 
-`demo_price_tag.py` 末尾の `main()` 内の変数を適宜変更します：
+`demo_price_tag.py` 末尾の `main()` 内の変数を変更するだけです：
 
 ```python
 def main():
@@ -172,4 +193,4 @@ epd.close()            # リソース解放
 ## お問い合わせ
 
 電子棚札アプリケーションのカスタマイズ・導入支援については
-別途、株式会社ウインドアバフトまでお問い合わせください。
+別途お問い合わせください。

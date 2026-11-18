@@ -252,7 +252,7 @@ def demo_basic():
     FONT = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
     BOLD = '/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc'
     try:
-        f_large  = ImageFont.truetype(BOLD, 20)
+        f_large  = ImageFont.truetype(BOLD, 18)
         f_medium = ImageFont.truetype(FONT, 14)
         f_small  = ImageFont.truetype(FONT, 11)
     except OSError:
@@ -265,7 +265,7 @@ def demo_basic():
     bw = Image.new('1', (EPD_WIDTH, EPD_HEIGHT), 255)
     d  = ImageDraw.Draw(bw)
     d.rectangle([(0,0),(EPD_WIDTH-1, EPD_HEIGHT-1)], outline=0, width=2)
-    d.text((8,  8), 'epd_windabaft0213a01',     font=f_large,  fill=0)
+    d.text((8,  8), 'epd_windabaft0213a01', font=f_large,  fill=0)
     d.text((8, 36), '250×122  3色表示',   font=f_medium, fill=0)
     d.text((8, 58), 'Black / White / Red', font=f_small,  fill=0)
     d.line([(0, 76), (EPD_WIDTH, 76)],     fill=0, width=1)
